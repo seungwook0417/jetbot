@@ -33,38 +33,6 @@ def face_detector(img):
         #print(roi)
     return img, roi  # 검출된 좌표에 사각 박스 그리고(img), 검출된 부위를 잘라(roi) 전달
 
-def detect_from_image(frame):
-    print("Runnig!!")
-    samplecount = 0
-    detector = CustomObjectDetection()
-    detector.setModelTypeAsYOLOv3()
-    detector.setModelPath(detection_model_path=os.path.join(execution_path, "detection_model.h5"))
-    detector.setJsonPath(configuration_json=os.path.join(execution_path, "detection_config.json"))
-    detector.loadModel()
-    try:
-        file_name_path = 'temp/fire.jpg'
-        cv2.imwrite(file_name_path, frame)
-
-        detections = detector.detectObjectsFromImage(input_image=file_name_path,
-                                                    output_image_path=os.path.join(execution_path, "1-detected.jpg"),
-                                                    minimum_percentage_probability=40)
-
-        #os.remove(file_name_path)
-        #os.remove(os.path.join(execution_path, "1-detected.jpg"))
-        #print(detections)
-        for detection in detections:
-            if detection["percentage_probability"] >= 40:
-                print("fire")
-                alert("fire")
-                send_telegram(file_name_path)
-                if samplecount == 0:
-                    send_kakaotalk("침입자 경보 안내")
-                    samplecount +=1
-                # send_telegram(file_name_path)
-                # alert('fire')
-                #print(detection["name"], " : ", detection["percentage_probability"], " : ", detection["box_points"])
-    except:
-        pass
 def fire(cap):
     samplecount = 0
     while True:
