@@ -36,4 +36,4 @@ def train(name):
 
 if __name__ == "__main__":
     # 학습 시작
-    model = train('fire')
+    model = train('lee')
