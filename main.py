@@ -1,7 +1,7 @@
 from flask import Flask, render_template, Response
 
 import part2
-import ten
+import fire
 import cv2
 
 camera = cv2.VideoCapture(-1)
